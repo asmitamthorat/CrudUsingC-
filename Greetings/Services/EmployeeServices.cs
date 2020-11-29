@@ -56,6 +56,15 @@ namespace Greetings.Services
         
         }
 
+
+        public ServiceResponse<EmployeesDTO> UpdateEmployee(int id, EmployeesDTO employee)         
+        {
+            ServiceResponse<EmployeesDTO> serviceResponse = new ServiceResponse<EmployeesDTO>();
+            _repo.UpdateEmployee( id,  employee);
+            serviceResponse.Message = "Updated Successfully";
+            return serviceResponse;
+        }
+
        
     }
 }

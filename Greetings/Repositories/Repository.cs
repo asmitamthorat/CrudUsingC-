@@ -1,4 +1,5 @@
-﻿using Greetings.Models;
+﻿using Greetings.DTOs.EmployeeDTO;
+using Greetings.Models;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Greetings.Repositories
 {
-    public class Repository: IRepository<Employee>
+    public class Repository : IRepository<Employee>
     {
         private IConfiguration _configuration;
         private string _connectionString;
@@ -22,7 +23,7 @@ namespace Greetings.Repositories
             Console.WriteLine(_connectionString);
         }
 
-        public List<Employee> Get() 
+        public List<Employee> Get()
         {
             List<Employee> employees = new List<Employee>();
             using (_conn)
@@ -56,22 +57,22 @@ namespace Greetings.Repositories
             Employee employee = null;
             using (_conn) {
                 _conn.Open();
-                SqlCommand command = new SqlCommand("Select id,name,address,email,password,phoneno from EmployeeTable where id=@id",_conn);
+                SqlCommand command = new SqlCommand("Select id,name,address,email,password,phoneno from EmployeeTable where id=@id", _conn);
                 command.Parameters.AddWithValue("@id", id);
                 using (SqlDataReader reader = command.ExecuteReader()) {
                     while (reader.Read()) {
 
                         employee = new Employee
                         {
-                            ID=Convert.ToInt32(reader["id"]),
-                            Name=reader.GetString(1),
-                            Email=reader.GetString(3),
-                            Password=reader.GetString(4),
-                            Address=reader.GetString(2),
-                            PhoneNumber=reader.GetInt32(5)
+                            ID = Convert.ToInt32(reader["id"]),
+                            Name = reader.GetString(1),
+                            Email = reader.GetString(3),
+                            Password = reader.GetString(4),
+                            Address = reader.GetString(2),
+                            PhoneNumber = reader.GetInt32(5)
                         };
                     }
-                
+
                 }
                 _conn.Close();
             }
@@ -93,15 +94,32 @@ namespace Greetings.Repositories
             _conn.Close();
         }
 
-        public void Remove(int id) 
-        
+        public void Remove(int id)
+
         {
             _conn.Open();
             SqlCommand command = new SqlCommand("Delete from EmployeeTable where id=@id", _conn);
             command.Parameters.AddWithValue("@id", id);
             command.ExecuteNonQuery();
             _conn.Close();
-        
+
+        }
+
+
+        public void UpdateEmployee(int id, EmployeesDTO employee)
+        {
+            
+                SqlCommand command = new SqlCommand("update EmployeeTable set name=@name, address=@address, phoneno=@phoneno where id = @id");
+                command.Parameters.AddWithValue("@name", employee.Name);
+                command.Parameters.AddWithValue("@address", employee.Address);
+                command.Parameters.AddWithValue("@phoneno", employee.PhoneNumber);
+                command.Parameters.AddWithValue("@id", id);
+                 _conn.Open();
+                 command.Connection = _conn;
+                 command.ExecuteNonQuery();
+                 _conn.Close();
+
+
         }
 
     }

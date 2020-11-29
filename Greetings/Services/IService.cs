@@ -14,5 +14,7 @@ namespace Greetings.Services
         ServiceResponse<EmployeesDTO> AddEmployee(EmployeesDTO employee);
 
         ServiceResponse<EmployeesDTO> RemoveEmployee(int id);
+
+        ServiceResponse<EmployeesDTO> UpdateEmployee(int id, EmployeesDTO employee);
     }
 }

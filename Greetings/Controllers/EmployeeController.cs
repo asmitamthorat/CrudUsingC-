@@ -46,7 +46,13 @@ namespace Greetings.Controllers
         
         }
 
-       
+        [HttpPut("{id}")]
+        public IActionResult EditEmployee(int id, EmployeesDTO employee) 
+        {
+            return Ok(_empService.UpdateEmployee(id, employee));
+        }
+
+      
 
 
        
