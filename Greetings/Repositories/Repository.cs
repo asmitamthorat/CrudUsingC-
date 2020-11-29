@@ -46,10 +46,8 @@ namespace Greetings.Repositories
                     }
                 }
                 _conn.Close();
-            
             }
             return employees;
-        
         }
 
 
@@ -71,8 +69,6 @@ namespace Greetings.Repositories
                             Password=reader.GetString(4),
                             Address=reader.GetString(2),
                             PhoneNumber=reader.GetInt32(5)
-
-
                         };
                     }
                 
@@ -80,6 +76,32 @@ namespace Greetings.Repositories
                 _conn.Close();
             }
             return employee;
+        }
+
+
+        public void Add(Employee employeeData)
+        {
+            SqlCommand command = new SqlCommand("insert into EmployeeTable(name,password,address,email,phoneno) values(@name,@password,@address,@email,@phoneno)");
+            command.Parameters.AddWithValue("@name", employeeData.Name);
+            command.Parameters.AddWithValue("@password", employeeData.Password);
+            command.Parameters.AddWithValue("@address", employeeData.Address);
+            command.Parameters.AddWithValue("@email", employeeData.Email);
+            command.Parameters.AddWithValue("@phoneno", employeeData.PhoneNumber);
+            _conn.Open();
+            command.Connection = _conn;
+            command.ExecuteNonQuery();
+            _conn.Close();
+        }
+
+        public void Remove(int id) 
+        
+        {
+            _conn.Open();
+            SqlCommand command = new SqlCommand("Delete from EmployeeTable where id=@id", _conn);
+            command.Parameters.AddWithValue("@id", id);
+            command.ExecuteNonQuery();
+            _conn.Close();
+        
         }
 
     }

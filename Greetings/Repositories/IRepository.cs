@@ -10,5 +10,9 @@ namespace Greetings.Repositories
         List<T> Get();
         T Get(int id);
 
+       void Add(T employeeData);
+
+        void Remove(int id);
+
     }
 }

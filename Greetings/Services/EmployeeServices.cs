@@ -38,6 +38,24 @@ namespace Greetings.Services
         
         }
 
+        public ServiceResponse<EmployeesDTO> AddEmployee(EmployeesDTO employee)
+        {
+            ServiceResponse<EmployeesDTO> serviceResponse = new ServiceResponse<EmployeesDTO>();
+            serviceResponse.Data = employee;
+            _repo.Add(_mapper.Map<Employee>(employee));
+            return serviceResponse;
+        }
+
+
+        public ServiceResponse<EmployeesDTO> RemoveEmployee(int id)
+        {
+            ServiceResponse<EmployeesDTO> serviceResponse = new ServiceResponse<EmployeesDTO>();
+            _repo.Remove(id);
+            serviceResponse.Message = "Deleted Successfully";
+            return serviceResponse;
+        
+        }
+
        
     }
 }

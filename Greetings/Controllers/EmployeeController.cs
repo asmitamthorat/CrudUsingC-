@@ -1,4 +1,5 @@
-﻿using Greetings.Services;
+﻿using Greetings.DTOs.EmployeeDTO;
+using Greetings.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,23 @@ namespace Greetings.Controllers
         {
             return Ok(_empService.GetEmployee(id));
         }
+
+        [HttpPost]
+        public IActionResult AddEmployee(EmployeesDTO employee)
+        {
+            return Ok(_empService.AddEmployee(employee));
+        
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+
+            return Ok(_empService.RemoveEmployee(id));
+        
+        }
+
+       
 
 
        
