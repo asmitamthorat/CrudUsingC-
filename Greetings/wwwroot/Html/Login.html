@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html style="height:100%">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/Login.css">
+</head>
+<body class="Login_Body_Div">
+    <div class="Login_Main_Div1" onkeyup="Validation()">
+        <div class="Login_Div">Login</div>
+        <div class="Login_Input_Div">
+            <div class=" Input_Divs">
+                <input id="email" class="Input_Field" placeholder="Email" />
+            </div>
+            <div class=" Input_Divs">
+                <input id="password" class="Input_Field" placeholder="Password" type="password" />
+            </div>
+            <a class="SignIn_Button" href='GetPassword.html'> ForgotPassword?</a>
+        </div>
+        <div class="SignIN_Div">
+            <button  id="button_signIn" class="Disable_SignIn_Button" onclick="SignIn()">SignIn</button>
+
+        </div>
+
+        <div class="SignUp_Div">
+            Not a member?
+            <a class="SignIn_Button" href='Register.html'> Signup</a>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script>src = "http://code.jquery.com/jquery-3.2.1.js"</script>
+<script type="text/javascript">
+    function Validation() {
+        var email_data = document.getElementById("email").value;
+        var password_data = document.getElementById("password").value;
+        var EMailRegex = /^[0-9a-zA-Z]+[.+-_]{0,1}[0-9a-zA-Z]+[@][a-zA-Z]+[.][a-zA-Z]{2,3}([.][a-zA-Z]{2,3}){0,1}/
+        if (email_data != "" && password_data != "" && email_data.match(EMailRegex)) {
+            document.getElementById("button_signIn").className = "SignIn_Button";
+        }
+    }
+
+    function SignIn() {
+        alert("login successful")
+    }
+
+</script>
