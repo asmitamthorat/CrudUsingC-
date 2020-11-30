@@ -1,11 +1,10 @@
-﻿using Greetings.DTOs.EmployeeDTO;
+﻿
 using Greetings.Models;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace Greetings.Repositories
 {
@@ -106,7 +105,7 @@ namespace Greetings.Repositories
         }
 
 
-        public void UpdateEmployee(int id, EmployeesDTO employee)
+        public void UpdateEmployee(int id, Employee employee)
         {
             
                 SqlCommand command = new SqlCommand("update EmployeeTable set name=@name, address=@address, phoneno=@phoneno where id = @id");

@@ -1,4 +1,5 @@
-﻿using Greetings.DTOs.EmployeeDTO;
+﻿
+using Greetings.Models;
 using Greetings.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -22,7 +23,15 @@ namespace Greetings.Controllers
 
         public IActionResult Get() 
         {
-            return Ok(_empService.GetEmployees());
+            try
+            {
+                return Ok(_empService.GetEmployees());
+
+            } catch (Exception e) {
+
+              return  this.BadRequest();
+            }
+           
         }
 
         [HttpGet("{id}")]
@@ -32,7 +41,7 @@ namespace Greetings.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddEmployee(EmployeesDTO employee)
+        public IActionResult AddEmployee(Employee employee)
         {
             return Ok(_empService.AddEmployee(employee));
         
@@ -47,7 +56,7 @@ namespace Greetings.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult EditEmployee(int id, EmployeesDTO employee) 
+        public IActionResult EditEmployee(int id, Employee employee) 
         {
             return Ok(_empService.UpdateEmployee(id, employee));
         }

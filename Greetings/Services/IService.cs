@@ -1,4 +1,5 @@
-﻿using Greetings.DTOs.EmployeeDTO;
+﻿
+using Greetings.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +9,13 @@ namespace Greetings.Services
 {
     public interface IService
     {
-        ServiceResponse<List<EmployeesDTO>> GetEmployees();
-        ServiceResponse<EmployeesDTO> GetEmployee(int id);
+        ServiceResponse<List<Employee>> GetEmployees();
+        ServiceResponse<Employee> GetEmployee(int id);
 
-        ServiceResponse<EmployeesDTO> AddEmployee(EmployeesDTO employee);
+        ServiceResponse<Employee> AddEmployee(Employee employee);
 
-        ServiceResponse<EmployeesDTO> RemoveEmployee(int id);
+        ServiceResponse<Employee> RemoveEmployee(int id);
 
-        ServiceResponse<EmployeesDTO> UpdateEmployee(int id, EmployeesDTO employee);
+        ServiceResponse<Employee> UpdateEmployee(int id, Employee employee);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Greetings.DTOs.EmployeeDTO;
+
 using Greetings.Models;
 using Greetings.Repositories;
 using System;
@@ -21,35 +21,35 @@ namespace Greetings.Services
             _repo = repo;
         }
 
-        public ServiceResponse<List<EmployeesDTO>> GetEmployees()
-        {
-            ServiceResponse<List<EmployeesDTO>> serviceResponse = new ServiceResponse<List<EmployeesDTO>>();
-            List<Employee> employees = _repo.Get();
-            serviceResponse.Data = employees.Select(employee => _mapper.Map<EmployeesDTO>(employee)).ToList();
-            return serviceResponse;
-        }
+        //public ServiceRespose<List<Employee>> IService.GetEmployees()
+        //{
+        //    ServiceResponse<List<Employee>> serviceResponse = new ServiceResponse<List<Employee>>();
+        //    List<Employee> employees = _repo.Get();
+        //    serviceResponse.Data = employees.Select(employee => _mapper.Map<Employee>(employee)).ToList();
+        //    return serviceResponse;
+        //}
 
 
-        public ServiceResponse<EmployeesDTO> GetEmployee(int id)
+        public ServiceResponse<Employee> GetEmployee(int id)
         {
-            ServiceResponse<EmployeesDTO> serviceResponse = new ServiceResponse<EmployeesDTO>();
-            serviceResponse.Data = _mapper.Map<EmployeesDTO>(_repo.Get(id));
+            ServiceResponse<Employee> serviceResponse = new ServiceResponse<Employee>();
+            serviceResponse.Data = _repo.Get(id);
             return serviceResponse;
         
         }
 
-        public ServiceResponse<EmployeesDTO> AddEmployee(EmployeesDTO employee)
+        public ServiceResponse<Employee> AddEmployee(Employee employee)
         {
-            ServiceResponse<EmployeesDTO> serviceResponse = new ServiceResponse<EmployeesDTO>();
+            ServiceResponse<Employee> serviceResponse = new ServiceResponse<Employee>();
             serviceResponse.Data = employee;
-            _repo.Add(_mapper.Map<Employee>(employee));
+            _repo.Add(employee);
             return serviceResponse;
         }
 
 
-        public ServiceResponse<EmployeesDTO> RemoveEmployee(int id)
+        public ServiceResponse<Employee> RemoveEmployee(int id)
         {
-            ServiceResponse<EmployeesDTO> serviceResponse = new ServiceResponse<EmployeesDTO>();
+            ServiceResponse<Employee> serviceResponse = new ServiceResponse<Employee>();
             _repo.Remove(id);
             serviceResponse.Message = "Deleted Successfully";
             return serviceResponse;
@@ -57,14 +57,20 @@ namespace Greetings.Services
         }
 
 
-        public ServiceResponse<EmployeesDTO> UpdateEmployee(int id, EmployeesDTO employee)         
+        public ServiceResponse<Employee> UpdateEmployee(int id, Employee employee)         
         {
-            ServiceResponse<EmployeesDTO> serviceResponse = new ServiceResponse<EmployeesDTO>();
+            ServiceResponse<Employee> serviceResponse = new ServiceResponse<Employee>();
             _repo.UpdateEmployee( id,  employee);
             serviceResponse.Message = "Updated Successfully";
             return serviceResponse;
         }
 
-       
+        public ServiceResponse<List<Employee>> GetEmployees()
+        {
+            ServiceResponse<List<Employee>> serviceResponse = new ServiceResponse<List<Employee>>();
+            List<Employee> employees = _repo.Get();
+            serviceResponse.Data = employees;
+            return serviceResponse;
+        }
     }
 }

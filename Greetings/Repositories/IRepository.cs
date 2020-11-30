@@ -1,4 +1,5 @@
-﻿using Greetings.DTOs.EmployeeDTO;
+﻿
+using Greetings.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Greetings.Repositories
 
         void Remove(int id);
 
-        void UpdateEmployee(int id, EmployeesDTO employee);
+        void UpdateEmployee(int id, Employee employee);
 
     }
 }
