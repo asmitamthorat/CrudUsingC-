@@ -1,11 +1,15 @@
 ﻿
-using Greetings.Models;
+
 using Greetings.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Net;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GreetingAppBL;
+using GreetingAppModelLayer;
+using Employee = GreetingAppModelLayer.Employee;
 
 namespace Greetings.Controllers
 {
@@ -17,48 +21,77 @@ namespace Greetings.Controllers
         private IService _empService;
 
         public EmployeeController(IService empService) {
-            this._empService = empService;
-        
+            this._empService = empService;   
         }
 
         public IActionResult Get() 
-        {
+        {          
             try
             {
                 return Ok(_empService.GetEmployees());
 
             } catch (Exception e) {
 
-              return  this.BadRequest();
-            }
-           
+                return this.BadRequest();
+            }          
         }
 
         [HttpGet("{id}")]
-        public IActionResult Detail(int id)
+        public async Task<IActionResult> Detail(int id)
         {
-            return Ok(_empService.GetEmployee(id));
+            try
+            {
+                return Ok(_empService.GetEmployee(id));
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest();
+            }
         }
 
         [HttpPost]
         public IActionResult AddEmployee(Employee employee)
         {
-            return Ok(_empService.AddEmployee(employee));
-        
+            try {
+                return Ok(_empService.AddEmployee(employee));
+            }
+            catch (Exception e) {
+                return this.BadRequest();
+            }
+
+
+
+
+
+            //if (employee.Name == null && employee.Email == null)
+            //{
+            //    throw new ArgumentNullException("you haven't provided any data");
+            //}
+            //else
+            //{
+            //    return Ok(_empService.AddEmployee(employee));
+            //}
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-
-            return Ok(_empService.RemoveEmployee(id));
-        
+            try {
+                return Ok(_empService.RemoveEmployee(id));
+            }
+            catch (Exception e) {
+              return  this.BadRequest();
+            }
         }
 
         [HttpPut("{id}")]
         public IActionResult EditEmployee(int id, Employee employee) 
         {
-            return Ok(_empService.UpdateEmployee(id, employee));
+            try {
+                return Ok(_empService.UpdateEmployee(id, employee));
+            }catch (Exception) {
+                return this.BadRequest();
+            }   
         }
 
       

@@ -1,5 +1,5 @@
 ﻿
-using Greetings.Models;
+
 using Greetings.Repositories;
 using Greetings.Services;
 using Microsoft.AspNetCore.Builder;
@@ -15,6 +15,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
+using GreetingAppBL;
+using GreetingAppRL;
+using GreetingAppModelLayer;
 
 namespace Greetings
 {
@@ -22,7 +26,11 @@ namespace Greetings
     {
         public Startup(Microsoft.Extensions.Configuration.IConfiguration configuration)
         {
-            Configuration = configuration;
+            //Configuration = configuration;
+
+            //IConfiguration _configuration = configuration;
+            //string _connectionString = configuration.GetConnectionString("db1");
+            //SqlConnection _conn = new SqlConnection(_connectionString);
         }
 
         public Microsoft.Extensions.Configuration.IConfiguration Configuration { get; }
@@ -31,15 +39,20 @@ namespace Greetings
         public void ConfigureServices(IServiceCollection services)
         {
 
+    
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddScoped<IService, EmployeeServices>();
             services.AddScoped<IRepository<Employee>,Repository>();
-            //services.AddAutoMapper(typeof(Startup));
-            services.AddAutoMapper(typeof(Startup));
+
             services.AddCors(options => options.AddDefaultPolicy(
                 builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowCredentials().AllowAnyMethod()
                 ));
+
+
+
         }
+
+       
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

@@ -1,20 +1,21 @@
-﻿
-using Greetings.Models;
-using Microsoft.Extensions.Configuration;
+﻿using GreetingAppModelLayer;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Data.SqlClient;
+using System.Configuration;
+using Microsoft.Extensions.Configuration;
 
-
-namespace Greetings.Repositories
+namespace GreetingAppRL
 {
-    public class Repository : IRepository<Employee>
+    public class Repository: IRepository<Employee>
     {
-        private IConfiguration _configuration;
-        private string _connectionString;
-        private SqlConnection _conn;
+         private IConfiguration _configuration;
+         private string _connectionString;
+         private SqlConnection _conn;
 
-        public Repository(IConfiguration configuration) {
+        public Repository(IConfiguration configuration)
+        {
 
             _configuration = configuration;
             _connectionString = configuration.GetConnectionString("db1");
@@ -120,6 +121,5 @@ namespace Greetings.Repositories
 
 
         }
-
     }
 }

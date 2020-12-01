@@ -8,6 +8,13 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GreetingAppBL\GreetingAppBL.csproj" />
+    <ProjectReference Include="..\GreetingAppModelLayer\GreetingAppModelLayer.csproj" />
+    <ProjectReference Include="..\GreetingAppRL\GreetingAppRL.csproj" />
   </ItemGroup>
 
 </Project>

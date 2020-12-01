@@ -1,11 +1,9 @@
-﻿
-using Greetings.Models;
+﻿using GreetingAppModelLayer;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace Greetings.Services
+namespace GreetingAppBL
 {
     public interface IService
     {

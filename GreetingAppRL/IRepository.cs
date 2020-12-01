@@ -1,22 +1,19 @@
-﻿
-using Greetings.Models;
+﻿using GreetingAppModelLayer;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace Greetings.Repositories
+namespace GreetingAppRL
 {
-   public interface IRepository<T>
+    public interface IRepository<T>
     {
         List<T> Get();
         T Get(int id);
 
-       void Add(T employeeData);
+        void Add(T employeeData);
 
         void Remove(int id);
 
         void UpdateEmployee(int id, Employee employee);
-
     }
 }
