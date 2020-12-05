@@ -20,7 +20,7 @@ namespace Greetings.Controllers
 
         [HttpPost]
         [Route("login")]
-        public IActionResult Login([FromForm]RegistrationModel registrationModel)
+        public IActionResult LoginUser([FromForm]RegistrationModel registrationModel)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace Greetings.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get() {
+        public IActionResult GetUser() {
             try
             {
                 List<RegistrationModel> result = _regisService.GetUsers();

@@ -9,7 +9,6 @@ namespace GreetingAppRL
 {
     public class RegistrationRepository:IRegistrationRepository
     {
-
         private IConfiguration _configuration;
         private string _connectionString;
         private SqlConnection _conn;
@@ -51,7 +50,8 @@ namespace GreetingAppRL
             return registrationModel;
         }
 
-        public List<RegistrationModel> getUsers() {
+        public List<RegistrationModel> getUsers()
+        {
             List<RegistrationModel> list = new List<RegistrationModel>();
             using (_conn)
             {
@@ -70,7 +70,6 @@ namespace GreetingAppRL
                             password = reader.GetString(4),
                             
                         });
-
                     }
                 }
                 _conn.Close();
@@ -81,7 +80,6 @@ namespace GreetingAppRL
         public RegistrationModel checkLoginUser(RegistrationModel registrationModel)
         {
             RegistrationModel registrationModel1;
-           
             _conn.Open();
             SqlCommand command = new SqlCommand("SELECT * FROM  registrationTable WHERE email=@email AND password=@password", _conn);
             command.Parameters.AddWithValue("@email", registrationModel.email);
@@ -101,14 +99,10 @@ namespace GreetingAppRL
                         lastName = reader.GetString(2),
                         email = reader.GetString(3),
                         password = reader.GetString(4),
-                       
                     };
                 }
             }
-
             _conn.Close();
-
-            
             return registrationModel;
         }
     }

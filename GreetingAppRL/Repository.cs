@@ -104,7 +104,6 @@ namespace GreetingAppRL
 
         public Employee UpdateEmployee(int id, Employee employee)
         {
-            
                 SqlCommand command = new SqlCommand("update EmployeeTable set name=@name, address=@address, phoneno=@phoneno where id = @id");
                 command.Parameters.AddWithValue("@name", employee.Name);
                 command.Parameters.AddWithValue("@address", employee.Address);
@@ -115,7 +114,6 @@ namespace GreetingAppRL
                 command.ExecuteNonQuery();
                 _conn.Close();
                 return employee;
-
         }
     }
 }

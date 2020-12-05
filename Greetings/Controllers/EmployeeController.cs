@@ -20,7 +20,7 @@ namespace Greetings.Controllers
             this._empService = empService;   
         }
         [HttpGet]
-        public IActionResult Get() 
+        public IActionResult GetEmployees() 
         {          
             try
             {
@@ -37,7 +37,7 @@ namespace Greetings.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Detail(int id)
+        public IActionResult GetEmployee(int id)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace Greetings.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult DeleteEmployee(int id)
         {
            
             try {

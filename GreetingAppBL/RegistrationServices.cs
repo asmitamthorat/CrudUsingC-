@@ -15,12 +15,14 @@ namespace GreetingAppBL
             _repo = repo;
         }
 
-        public RegistrationModel AddUser(RegistrationModel registrationModel) {
+        public RegistrationModel AddUser(RegistrationModel registrationModel)
+        {
             RegistrationModel data = _repo.addUser(registrationModel);
             return data;  
         }
 
-        public List<RegistrationModel> GetUsers() {
+        public List<RegistrationModel> GetUsers()
+        {
             List<RegistrationModel> list = _repo.getUsers();
             return list;
         }
