@@ -4,7 +4,6 @@ using System.Text;
 
 namespace GreetingAppModelLayer
 {
-  
         public class Employee
         {
             public int ID { get; set; }
@@ -13,7 +12,6 @@ namespace GreetingAppModelLayer
             public string Password { get; set; }
             public string Address { get; set; }
             public int PhoneNumber { get; set; }
-
         }
     
 }

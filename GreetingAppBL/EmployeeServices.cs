@@ -8,53 +8,41 @@ namespace GreetingAppBL
 {
     public class EmployeeServices:IService
     {
-        IRepository<Employee> _repo;
+        IRepository _repo;
 
-        public EmployeeServices(IRepository<Employee> repo)
+        public EmployeeServices(IRepository repo)
         {
-
             _repo = repo;
         }
 
-        public ServiceResponse<Employee> GetEmployee(int id)
-        {
-            ServiceResponse<Employee> serviceResponse = new ServiceResponse<Employee>();
-            serviceResponse.Data = _repo.Get(id);
-            return serviceResponse;
-
+        public Employee GetEmployee(int id)
+        {  
+           Employee list = _repo.Get(id);
+           return list;
         }
 
-        public ServiceResponse<Employee> AddEmployee(Employee employee)
+        public Employee AddEmployee(Employee employee)
         {
-            ServiceResponse<Employee> serviceResponse = new ServiceResponse<Employee>();
-            serviceResponse.Data = employee;
-            _repo.Add(employee);
-            return serviceResponse;
+          Employee data = _repo.Add(employee);
+            return data;
         }
 
-        public ServiceResponse<Employee> RemoveEmployee(int id)
+        public int RemoveEmployee(int id)
         {
-            ServiceResponse<Employee> serviceResponse = new ServiceResponse<Employee>();
-            _repo.Remove(id);
-            serviceResponse.Message = "Deleted Successfully";
-            return serviceResponse;
-
+          int result =  _repo.Remove(id);
+          return result;
         }
 
-        public ServiceResponse<Employee> UpdateEmployee(int id, Employee employee)
+        public Employee UpdateEmployee(int id, Employee employee)
         {
-            ServiceResponse<Employee> serviceResponse = new ServiceResponse<Employee>();
-            _repo.UpdateEmployee(id, employee);
-            serviceResponse.Message = "Updated Successfully";
-            return serviceResponse;
+           Employee result= _repo.UpdateEmployee(id, employee); 
+           return result;
         }
 
-        public ServiceResponse<List<Employee>> GetEmployees()
+        public List<Employee> GetEmployees()
         {
-            ServiceResponse<List<Employee>> serviceResponse = new ServiceResponse<List<Employee>>();
-            List<Employee> employees = _repo.Get();
-            serviceResponse.Data = employees;
-            return serviceResponse;
+            List<Employee> employees = _repo.Get();  
+            return employees;
         }
     }
 }

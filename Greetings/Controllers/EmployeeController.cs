@@ -1,6 +1,4 @@
 ﻿
-
-using Greetings.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
@@ -17,35 +15,42 @@ namespace Greetings.Controllers
     [Route("[controller]")]
     public class EmployeeController : ControllerBase
     {
-
         private IService _empService;
-
         public EmployeeController(IService empService) {
             this._empService = empService;   
         }
-
+        [HttpGet]
         public IActionResult Get() 
         {          
             try
             {
-                return Ok(_empService.GetEmployees());
-
-            } catch (Exception e) {
-
-                return this.BadRequest();
+                List<Employee> empList = _empService.GetEmployees();
+                if (empList == null)
+                {
+                    return this.NotFound(new ServiceResponse<Employee> { Data = null, Message = "internal server error", Response = (int)HttpStatusCode.BadRequest });
+                }
+                return Ok(new ServiceResponse<List<Employee>> { Data = empList, Message = "successful", Response = (int)HttpStatusCode.OK });
+            } catch (Exception)
+            {
+                return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not found ", Response = (int)HttpStatusCode.NotFound });
             }          
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Detail(int id)
+        public IActionResult Detail(int id)
         {
             try
             {
-                return Ok(_empService.GetEmployee(id));
+                Employee employee = _empService.GetEmployee(id);
+                if (employee == null)
+                {
+                    return this.NotFound(new ServiceResponse<Employee> { Data = null, Message = "internal server error", Response = (int)HttpStatusCode.BadRequest });
+                }
+                return Ok(new ServiceResponse<Employee> { Data = employee, Message = "successful", Response = (int)HttpStatusCode.OK });
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                return this.BadRequest();
+                return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not Fount", Response= (int)HttpStatusCode.NotFound });
             }
         }
 
@@ -53,34 +58,32 @@ namespace Greetings.Controllers
         public IActionResult AddEmployee(Employee employee)
         {
             try {
-                return Ok(_empService.AddEmployee(employee));
+                var result = _empService.AddEmployee(employee);
+                if (result==null)
+                {
+                    return this.NotFound(new ServiceResponse<Employee> { Data = null, Message = "internal server error", Response = (int)HttpStatusCode.BadRequest });
+                }
+                return Ok(new ServiceResponse<Employee> { Data = result, Message = "employee added successfully", Response = (int)HttpStatusCode.OK });
             }
-            catch (Exception e) {
-                return this.BadRequest();
+            catch (Exception) {
+                return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not Fount", Response = (int)HttpStatusCode.NotFound });
             }
-
-
-
-
-
-            //if (employee.Name == null && employee.Email == null)
-            //{
-            //    throw new ArgumentNullException("you haven't provided any data");
-            //}
-            //else
-            //{
-            //    return Ok(_empService.AddEmployee(employee));
-            //}
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+           
             try {
-                return Ok(_empService.RemoveEmployee(id));
+                int result = _empService.RemoveEmployee(id);
+                if (result==0)
+                {
+                    return this.NotFound(new ServiceResponse<Employee> { Data = null, Message = "internal server error", Response = (int)HttpStatusCode.BadRequest });
+                }
+                return Ok(new ServiceResponse<int> { Data = result, Message = "employee deleted successfully", Response = (int)HttpStatusCode.OK });
             }
-            catch (Exception e) {
-              return  this.BadRequest();
+            catch (Exception ) {
+                return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not Fount", Response = (int)HttpStatusCode.NotFound });
             }
         }
 
@@ -88,15 +91,16 @@ namespace Greetings.Controllers
         public IActionResult EditEmployee(int id, Employee employee) 
         {
             try {
-                return Ok(_empService.UpdateEmployee(id, employee));
-            }catch (Exception) {
-                return this.BadRequest();
-            }   
+                var result = _empService.UpdateEmployee(id, employee);
+                if (result == null) {
+                    return this.NotFound(new ServiceResponse<Employee> { Data = null, Message = "internal server error", Response = (int)HttpStatusCode.BadRequest });
+                }
+                return Ok(new ServiceResponse<Employee> { Data = result, Message = "edited successfully", Response = (int)HttpStatusCode.OK });
+            }catch (Exception)
+            {
+                return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not Fount", Response = (int)HttpStatusCode.NotFound });
+            }
         }
 
-      
-
-
-       
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace GreetingAppRL
 {
-    public class Repository: IRepository<Employee>
+    public class Repository: IRepository
     {
          private IConfiguration _configuration;
          private string _connectionString;
@@ -16,9 +16,8 @@ namespace GreetingAppRL
 
         public Repository(IConfiguration configuration)
         {
-
             _configuration = configuration;
-            _connectionString = configuration.GetConnectionString("db1");
+            _connectionString = configuration.GetConnectionString("GreetingAppDB");
             _conn = new SqlConnection(_connectionString);
             Console.WriteLine(_connectionString);
         }
@@ -43,7 +42,6 @@ namespace GreetingAppRL
                             Address = reader.GetString(2),
                             PhoneNumber = reader.GetInt32(5),
                         });
-
                     }
                 }
                 _conn.Close();
@@ -61,7 +59,6 @@ namespace GreetingAppRL
                 command.Parameters.AddWithValue("@id", id);
                 using (SqlDataReader reader = command.ExecuteReader()) {
                     while (reader.Read()) {
-
                         employee = new Employee
                         {
                             ID = Convert.ToInt32(reader["id"]),
@@ -72,7 +69,6 @@ namespace GreetingAppRL
                             PhoneNumber = reader.GetInt32(5)
                         };
                     }
-
                 }
                 _conn.Close();
             }
@@ -80,7 +76,7 @@ namespace GreetingAppRL
         }
 
 
-        public void Add(Employee employeeData)
+        public Employee Add(Employee employeeData)
         {
             SqlCommand command = new SqlCommand("insert into EmployeeTable(name,password,address,email,phoneno) values(@name,@password,@address,@email,@phoneno)");
             command.Parameters.AddWithValue("@name", employeeData.Name);
@@ -92,21 +88,21 @@ namespace GreetingAppRL
             command.Connection = _conn;
             command.ExecuteNonQuery();
             _conn.Close();
+            return employeeData;
         }
 
-        public void Remove(int id)
-
+        public int Remove(int id)
         {
             _conn.Open();
             SqlCommand command = new SqlCommand("Delete from EmployeeTable where id=@id", _conn);
             command.Parameters.AddWithValue("@id", id);
             command.ExecuteNonQuery();
             _conn.Close();
-
+            return id;
         }
 
 
-        public void UpdateEmployee(int id, Employee employee)
+        public Employee UpdateEmployee(int id, Employee employee)
         {
             
                 SqlCommand command = new SqlCommand("update EmployeeTable set name=@name, address=@address, phoneno=@phoneno where id = @id");
@@ -114,11 +110,11 @@ namespace GreetingAppRL
                 command.Parameters.AddWithValue("@address", employee.Address);
                 command.Parameters.AddWithValue("@phoneno", employee.PhoneNumber);
                 command.Parameters.AddWithValue("@id", id);
-                 _conn.Open();
-                 command.Connection = _conn;
-                 command.ExecuteNonQuery();
-                 _conn.Close();
-
+                _conn.Open();
+                command.Connection = _conn;
+                command.ExecuteNonQuery();
+                _conn.Close();
+                return employee;
 
         }
     }

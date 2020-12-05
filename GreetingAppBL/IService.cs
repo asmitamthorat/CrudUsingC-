@@ -7,13 +7,10 @@ namespace GreetingAppBL
 {
     public interface IService
     {
-        ServiceResponse<List<Employee>> GetEmployees();
-        ServiceResponse<Employee> GetEmployee(int id);
-
-        ServiceResponse<Employee> AddEmployee(Employee employee);
-
-        ServiceResponse<Employee> RemoveEmployee(int id);
-
-        ServiceResponse<Employee> UpdateEmployee(int id, Employee employee);
+       List<Employee> GetEmployees();
+       Employee GetEmployee(int id);
+       Employee AddEmployee(Employee employee);
+       int RemoveEmployee(int id);
+        Employee UpdateEmployee(int id, Employee employee);
     }
 }

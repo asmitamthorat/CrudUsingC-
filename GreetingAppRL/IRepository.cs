@@ -5,15 +5,14 @@ using System.Text;
 
 namespace GreetingAppRL
 {
-    public interface IRepository<T>
+    public interface IRepository
     {
-        List<T> Get();
-        T Get(int id);
+       List<Employee> Get();
+       Employee Get(int id);
 
-        void Add(T employeeData);
+       Employee Add(Employee employeeData);
 
-        void Remove(int id);
-
-        void UpdateEmployee(int id, Employee employee);
+       int Remove(int id);
+       Employee UpdateEmployee(int id, Employee employee);
     }
 }
