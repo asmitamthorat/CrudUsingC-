@@ -27,12 +27,12 @@ namespace Greetings.Controllers
                 List<Employee> empList = _empService.GetEmployees();
                 if (empList == null)
                 {
-                    return this.NotFound(new ServiceResponse<Employee> { Data = null, Message = "internal server error", Response = (int)HttpStatusCode.BadRequest });
+                    return this.NotFound(new ServiceResponse<Employee> { Data = null, Message = "internal server error", Response = (int)HttpStatusCode.NotFound });
                 }
                 return Ok(new ServiceResponse<List<Employee>> { Data = empList, Message = "successful", Response = (int)HttpStatusCode.OK });
             } catch (Exception)
             {
-                return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not found ", Response = (int)HttpStatusCode.NotFound });
+                return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not found ", Response = (int)HttpStatusCode.BadRequest });
             }          
         }
 
@@ -44,13 +44,13 @@ namespace Greetings.Controllers
                 Employee employee = _empService.GetEmployee(id);
                 if (employee == null)
                 {
-                    return this.NotFound(new ServiceResponse<Employee> { Data = null, Message = "internal server error", Response = (int)HttpStatusCode.BadRequest });
+                    return this.NotFound(new ServiceResponse<Employee> { Data = null, Message = "internal server error", Response = (int)HttpStatusCode.NotFound });
                 }
                 return Ok(new ServiceResponse<Employee> { Data = employee, Message = "successful", Response = (int)HttpStatusCode.OK });
             }
             catch (Exception)
             {
-                return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not Fount", Response= (int)HttpStatusCode.NotFound });
+                return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not Fount", Response= (int)HttpStatusCode.BadRequest });
             }
         }
 
@@ -61,12 +61,12 @@ namespace Greetings.Controllers
                 var result = _empService.AddEmployee(employee);
                 if (result==null)
                 {
-                    return this.NotFound(new ServiceResponse<Employee> { Data = null, Message = "internal server error", Response = (int)HttpStatusCode.BadRequest });
+                    return this.NotFound(new ServiceResponse<Employee> { Data = null, Message = "internal server error", Response = (int)HttpStatusCode.NotFound });
                 }
                 return Ok(new ServiceResponse<Employee> { Data = result, Message = "employee added successfully", Response = (int)HttpStatusCode.OK });
             }
             catch (Exception) {
-                return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not Fount", Response = (int)HttpStatusCode.NotFound });
+                return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not Fount", Response = (int)HttpStatusCode.BadRequest });
             }
         }
 
@@ -78,12 +78,12 @@ namespace Greetings.Controllers
                 int result = _empService.RemoveEmployee(id);
                 if (result==0)
                 {
-                    return this.NotFound(new ServiceResponse<Employee> { Data = null, Message = "internal server error", Response = (int)HttpStatusCode.BadRequest });
+                    return this.NotFound(new ServiceResponse<Employee> { Data = null, Message = "internal server error", Response = (int)HttpStatusCode.NotFound });
                 }
                 return Ok(new ServiceResponse<int> { Data = result, Message = "employee deleted successfully", Response = (int)HttpStatusCode.OK });
             }
             catch (Exception ) {
-                return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not Fount", Response = (int)HttpStatusCode.NotFound });
+                return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not Fount", Response = (int)HttpStatusCode.BadRequest });
             }
         }
 
@@ -93,12 +93,12 @@ namespace Greetings.Controllers
             try {
                 var result = _empService.UpdateEmployee(id, employee);
                 if (result == null) {
-                    return this.NotFound(new ServiceResponse<Employee> { Data = null, Message = "internal server error", Response = (int)HttpStatusCode.BadRequest });
+                    return this.NotFound(new ServiceResponse<Employee> { Data = null, Message = "internal server error", Response = (int)HttpStatusCode.NotFound });
                 }
                 return Ok(new ServiceResponse<Employee> { Data = result, Message = "edited successfully", Response = (int)HttpStatusCode.OK });
             }catch (Exception)
             {
-                return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not Fount", Response = (int)HttpStatusCode.NotFound });
+                return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not Fount", Response = (int)HttpStatusCode.BadRequest });
             }
         }
 
