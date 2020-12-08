@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Greetings", "Greetings.cspr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreetingAppModelLayer", "..\GreetingAppModelLayer\GreetingAppModelLayer.csproj", "{F265645C-7E09-4DEF-96D9-103BC1F20FA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreetingAppBL", "..\GreetingAppBL\GreetingAppBL.csproj", "{E74CC530-5486-4984-80E3-F7F6DEEEC375}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreetingAppBL", "..\GreetingAppBL\GreetingAppBL.csproj", "{E74CC530-5486-4984-80E3-F7F6DEEEC375}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreetingAppRL", "..\GreetingAppRL\GreetingAppRL.csproj", "{76993A9C-8E7C-4F13-8ABC-3AD4B38A9539}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreetingAppRL", "..\GreetingAppRL\GreetingAppRL.csproj", "{76993A9C-8E7C-4F13-8ABC-3AD4B38A9539}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

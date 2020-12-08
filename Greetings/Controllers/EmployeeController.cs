@@ -19,7 +19,9 @@ namespace Greetings.Controllers
         public EmployeeController(IService empService) {
             this._empService = empService;   
         }
+
         [HttpGet]
+        [Route("GetEmployees")]
         public IActionResult GetEmployees() 
         {          
             try
@@ -33,7 +35,7 @@ namespace Greetings.Controllers
             } catch (Exception)
             {
                 return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not found ", Response = (int)HttpStatusCode.BadRequest });
-            }          
+            }         
         }
 
         [HttpGet("{id}")]
@@ -50,12 +52,13 @@ namespace Greetings.Controllers
             }
             catch (Exception)
             {
-                return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not Fount", Response= (int)HttpStatusCode.BadRequest });
+                return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not Found", Response= (int)HttpStatusCode.BadRequest });
             }
         }
 
         [HttpPost]
-        public IActionResult AddEmployee(Employee employee)
+        [Route("addEmployee")]
+        public IActionResult AddEmployee([FromForm] Employee employee)
         {
             try {
                 var result = _empService.AddEmployee(employee);
@@ -66,11 +69,12 @@ namespace Greetings.Controllers
                 return Ok(new ServiceResponse<Employee> { Data = result, Message = "employee added successfully", Response = (int)HttpStatusCode.OK });
             }
             catch (Exception) {
-                return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not Fount", Response = (int)HttpStatusCode.BadRequest });
+                return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not Found", Response = (int)HttpStatusCode.BadRequest });
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("DeleteEmployees/{id}")]
         public IActionResult DeleteEmployee(int id)
         {
            
@@ -83,7 +87,7 @@ namespace Greetings.Controllers
                 return Ok(new ServiceResponse<int> { Data = result, Message = "employee deleted successfully", Response = (int)HttpStatusCode.OK });
             }
             catch (Exception ) {
-                return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not Fount", Response = (int)HttpStatusCode.BadRequest });
+                return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not Found", Response = (int)HttpStatusCode.BadRequest });
             }
         }
 

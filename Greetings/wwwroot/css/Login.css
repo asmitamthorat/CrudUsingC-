@@ -24,11 +24,11 @@
     transition: 0.3s;
     width: 30%;
     justify-content: center;
- 
     align-items: center;
     display: flex;
     flex-direction: column;
     background-color: honeydew;
+    height: 250px;
 }
 
 
@@ -57,7 +57,7 @@
 
 .SignIn_Button {
     width: 10px;
-    height: 20px;
+    height: 0px;
     display: flex;
     color: blue;
     cursor: pointer;
@@ -164,4 +164,17 @@ button.SignIn_Button {
 
 button#button_signIn {
     border: inset;
+}
+
+
+.Login_Main_Div1 {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    background-color: honeydew;
+    height: 250px;
 }
