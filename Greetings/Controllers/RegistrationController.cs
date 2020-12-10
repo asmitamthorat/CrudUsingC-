@@ -38,7 +38,6 @@ namespace Greetings.Controllers
         }
 
         [HttpPost]
-        [Route("AddUser")]
         public IActionResult AddUser( [FromForm]  RegistrationModel registrationModel)
         {
             try

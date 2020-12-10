@@ -39,6 +39,7 @@ namespace Greetings.Controllers
         }
 
         [HttpGet("{id}")]
+
         public IActionResult GetEmployee(int id)
         {
             try
@@ -74,7 +75,8 @@ namespace Greetings.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleteEmployees/{id}")]
+       // [Route("{id}")]
+        [Route("DeleteEmployee/{id}")]
         public IActionResult DeleteEmployee(int id)
         {
            
@@ -91,8 +93,9 @@ namespace Greetings.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public IActionResult EditEmployee(int id, Employee employee) 
+        [HttpPut]
+        [Route("UpdateEmployee/{id}")]
+        public IActionResult EditEmployee(int id, [FromForm] Employee employee) 
         {
             try {
                 var result = _empService.UpdateEmployee(id, employee);
@@ -105,6 +108,5 @@ namespace Greetings.Controllers
                 return BadRequest(new ServiceResponse<Employee> { Data = null, Message = "Page not Fount", Response = (int)HttpStatusCode.BadRequest });
             }
         }
-
     }
 }

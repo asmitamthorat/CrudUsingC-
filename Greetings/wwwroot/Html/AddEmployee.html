@@ -7,7 +7,7 @@
 </head>
 <body class=" Login_Body_Div">
     <div class="Login_Main_Div" onkeyup="Validation()">
-        <div class="Login_Div">Add New Employee</div>
+        <div class="Login_Div">Register Employee</div>
         <div class="Login_Input_Div">
             <div class=" Input_Divs">
                 <input id="name" class="Input_Field" placeholder="Name" />
@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="SignIN_Div">
-            <button id="Register_Button" class="SignIn_Button" href='Login.html' onclick="SignUp()">SUBMIT</button>
+            <button id="Register_Button" class="SignIn_Button">SUBMIT</button>
         </div>
     </div>
 </body>
@@ -44,27 +44,27 @@
             document.getElementById("Register_Button").className = "SignIn_Button";
         }
     }
-
-    function SignUp() {
-        $.ajax({
-            url: "/Employee/addEmployee",
-            type: "POST",
-            data:
-            {
-                Email: $("#email").val(),
-                Name: $("#name").val(),
-                Password: $("#password").val(),
-                Address: $("#address").val(),
-                PhoneNumber: $("#phoneno").val()    
-            },
-            success: function (data)
-            {
-                console.log(data);
-            },
-            error: function (error)
-            {
-                console.log(error.response);
-            }
-        })
-    }
+    $(document).on('click', '#Register_Button', function () {
+       
+            $.ajax({
+                url: "/Employee/addEmployee",
+                type: "POST",
+                data:
+                {
+                    Email: $("#email").val(),
+                    Name: $("#name").val(),
+                    Password: $("#password").val(),
+                    Address: $("#address").val(),
+                    PhoneNumber: $("#phoneno").val()
+                },
+                success: function (data) {
+                    alert("Registration succesful");
+                },
+                error: function (error) {
+                    console.log(error.response);
+                }
+            })
+       
+    });
+    
 </script>
