@@ -7,10 +7,10 @@ namespace GreetingAppRL
 {
     public interface IRepository
     {
-       List<Employee> Get();
-       Employee Get(int id);
-       Employee Add(Employee employeeData);
+       List<EmployeeModel> Get();
+       EmployeeModel Get(int id);
+       EmployeeModel Add(EmployeeModel employeeData);
        int Remove(int id);
-       Employee UpdateEmployee(int id, Employee employee);
+       EmployeeModel UpdateEmployee(int id, EmployeeModel employee);
     }
 }

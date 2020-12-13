@@ -11,9 +11,9 @@ namespace Greetings.Controllers
     [Route("[controller]")]
     public class RegistrationController : ControllerBase
     {
-        private IRgistration _regisService;
+        private IRgistrationServices _regisService;
 
-        public RegistrationController(IRgistration registration)
+        public RegistrationController(IRgistrationServices registration)
         {
             this._regisService = registration;
         }

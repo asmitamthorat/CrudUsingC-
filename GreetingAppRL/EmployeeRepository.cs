@@ -22,9 +22,9 @@ namespace GreetingAppRL
             Console.WriteLine(_connectionString);
         }
 
-        public List<Employee> Get()
+        public List<EmployeeModel> Get()
         {
-            List<Employee> employees = new List<Employee>();
+            List<EmployeeModel> employees = new List<EmployeeModel>();
             using (_conn)
             {
                 _conn.Open();
@@ -33,7 +33,7 @@ namespace GreetingAppRL
                 {
                     while (reader.Read())
                     {
-                        employees.Add(new Employee
+                        employees.Add(new EmployeeModel
                         {
                             ID = Convert.ToInt32(reader["id"]),
                             Name = reader.GetString(1),
@@ -49,16 +49,16 @@ namespace GreetingAppRL
             return employees;
         }
 
-        public Employee Get(int id)
+        public EmployeeModel Get(int id)
         {
-            Employee employee = null;
+            EmployeeModel employee = null;
             using (_conn) {
                 _conn.Open();
                 SqlCommand command = new SqlCommand("Select id,name,address,email,password,phoneno from EmployeeTable where id=@id", _conn);
                 command.Parameters.AddWithValue("@id", id);
                 using (SqlDataReader reader = command.ExecuteReader()) {
                     while (reader.Read()) {
-                        employee = new Employee
+                        employee = new EmployeeModel
                         {
                             ID = Convert.ToInt32(reader["id"]),
                             Name = reader.GetString(1),
@@ -75,7 +75,7 @@ namespace GreetingAppRL
         }
 
 
-        public Employee Add(Employee employeeData)
+        public EmployeeModel Add(EmployeeModel employeeData)
         {
             SqlCommand command = new SqlCommand("insert into EmployeeTable(name,password,address,email,phoneno) values(@name,@password,@address,@email,@phoneno)");
             command.Parameters.AddWithValue("@name", employeeData.Name);
@@ -101,7 +101,7 @@ namespace GreetingAppRL
         }
 
 
-        public Employee UpdateEmployee(int id, Employee employee)
+        public EmployeeModel UpdateEmployee(int id, EmployeeModel employee)
         {
                 SqlCommand command = new SqlCommand("update EmployeeTable set name=@name, address=@address, phoneno=@phoneno where id = @id");
                 command.Parameters.AddWithValue("@name", employee.Name);

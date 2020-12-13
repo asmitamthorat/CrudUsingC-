@@ -45,7 +45,6 @@
     }
 
     function SignIn() {
-        console.log("login");
         $.ajax({
             url: "/Registration/login",
             type: "POST",
@@ -55,10 +54,11 @@
                 password: $("#password").val()
             },
             success: function (data) {
-                console.log(data);
+                console.log(data.data);
                 alert("login successful");
-                localStorage.setItem("jwt", data.data)
-                
+                localStorage.setItem("jwt", data.data);
+                //window.location.href = "./GetEmployee.html"; 
+                window.location="/Html/GetEmployee.html"
             },
             error: function (error) {
                 console.log(error.response);

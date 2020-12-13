@@ -15,15 +15,15 @@ namespace GreetingAppBL
             _repo = repo;
         }
 
-        public Employee GetEmployee(int id)
+        public EmployeeModel GetEmployee(int id)
         {  
-           Employee list = _repo.Get(id);
+           EmployeeModel list = _repo.Get(id);
            return list;
         }
 
-        public Employee AddEmployee(Employee employee)
+        public EmployeeModel AddEmployee(EmployeeModel employee)
         {
-          Employee data = _repo.Add(employee);
+          EmployeeModel data = _repo.Add(employee);
             return data;
         }
 
@@ -33,15 +33,15 @@ namespace GreetingAppBL
           return result;
         }
 
-        public Employee UpdateEmployee(int id, Employee employee)
+        public EmployeeModel UpdateEmployee(int id, EmployeeModel employee)
         {
-           Employee result= _repo.UpdateEmployee(id, employee); 
+           EmployeeModel result= _repo.UpdateEmployee(id, employee); 
            return result;
         }
 
-        public List<Employee> GetEmployees()
+        public List<EmployeeModel> GetEmployees()
         {
-            List<Employee> employees = _repo.Get();  
+            List<EmployeeModel> employees = _repo.Get();  
             return employees;
         }
     }

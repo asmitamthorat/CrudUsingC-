@@ -39,7 +39,7 @@ namespace Greetings
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddScoped<IService, EmployeeServices>();
-            services.AddScoped<IRepository,Repository>();
+            services.AddScoped<IRepository,EmployeeRepository>();
             services.AddScoped<IRegistrationRepository, RegistrationRepository>();
             services.AddScoped<IRgistration, RegistrationServices>();
             services.AddSingleton<ITokenManager, TokenManager>();

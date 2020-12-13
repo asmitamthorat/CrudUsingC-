@@ -7,7 +7,7 @@ using System.Text;
 
 namespace GreetingAppBL
 {
-    public class RegistrationServices:IRgistration
+    public class RegistrationServices:IRgistrationServices
     {
 
         public IRegistrationRepository _repo;

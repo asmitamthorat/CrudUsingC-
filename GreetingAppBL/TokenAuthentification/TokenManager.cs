@@ -46,7 +46,7 @@ namespace Greetings.TokenAuthentification
                 ValidateLifetime = true,
                 ValidateAudience = false,
                 ValidateIssuer = false,
-                ClockSkew = TimeSpan.FromMinutes(15)
+                ClockSkew = TimeSpan.FromMinutes(120000)
             }, out SecurityToken validatedToken);
             return claims;
         }
