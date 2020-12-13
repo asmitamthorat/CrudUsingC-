@@ -17,6 +17,7 @@ using GreetingAppBL;
 using GreetingAppRL;
 using GreetingAppModelLayer;
 using Swashbuckle.AspNetCore.Swagger;
+using Greetings.TokenAuthentification;
 
 namespace Greetings
 {
@@ -41,6 +42,7 @@ namespace Greetings
             services.AddScoped<IRepository,Repository>();
             services.AddScoped<IRegistrationRepository, RegistrationRepository>();
             services.AddScoped<IRgistration, RegistrationServices>();
+            services.AddSingleton<ITokenManager, TokenManager>();
 
             services.AddCors(options => options.AddDefaultPolicy(
                 builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowCredentials().AllowAnyMethod()

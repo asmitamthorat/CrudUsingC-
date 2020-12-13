@@ -8,20 +8,25 @@ using System.Threading.Tasks;
 using GreetingAppBL;
 using GreetingAppModelLayer;
 using Employee = GreetingAppModelLayer.Employee;
+using Greetings.TokenAuthentification;
 
 namespace Greetings.Controllers
+
 {
     [ApiController]
     [Route("[controller]")]
+ 
     public class EmployeeController : ControllerBase
     {
         private IService _empService;
-        public EmployeeController(IService empService) {
+        public EmployeeController(IService empService)
+        {
             this._empService = empService;   
         }
 
         [HttpGet]
         [Route("GetEmployees")]
+        [TokenAuthenticationFilter]
         public IActionResult GetEmployees() 
         {          
             try
@@ -38,8 +43,8 @@ namespace Greetings.Controllers
             }         
         }
 
-        [HttpGet("{id}")]
-
+        [HttpGet]
+        [Route("GetEmployee/{id}")]
         public IActionResult GetEmployee(int id)
         {
             try
@@ -78,8 +83,7 @@ namespace Greetings.Controllers
        // [Route("{id}")]
         [Route("DeleteEmployee/{id}")]
         public IActionResult DeleteEmployee(int id)
-        {
-           
+        {  
             try {
                 int result = _empService.RemoveEmployee(id);
                 if (result==0)
@@ -95,10 +99,10 @@ namespace Greetings.Controllers
 
         [HttpPut]
         [Route("UpdateEmployee/{id}")]
-        public IActionResult EditEmployee(int id, [FromForm] Employee employee) 
+        public IActionResult EditEmployee([FromForm] Employee employee) 
         {
             try {
-                var result = _empService.UpdateEmployee(id, employee);
+                var result = _empService.UpdateEmployee(employee.ID,employee);
                 if (result == null) {
                     return this.NotFound(new ServiceResponse<Employee> { Data = null, Message = "internal server error", Response = (int)HttpStatusCode.NotFound });
                 }

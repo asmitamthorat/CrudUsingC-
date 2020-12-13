@@ -9,7 +9,7 @@ namespace GreetingAppBL
     {
         RegistrationModel AddUser(GreetingAppModelLayer.RegistrationModel registrationModel);
         List<RegistrationModel> GetUsers();
-       RegistrationModel checkLoginUser(RegistrationModel registrationModel);
+       string checkLoginUser(RegistrationModel registrationModel);
     }
 
 }

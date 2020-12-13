@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="SignIN_Div">
-            <button id="Register_Button" class="SignIn_Button" href='Login.html' onclick="SignUp()">SUBMIT</button>
+            <button id="Register_Button" class="SignIn_Button" href='Login.html' onclick="SignUp()">Register</button>
         </div>
     </div>
 </body>
@@ -43,10 +43,8 @@
     }
 
     function SignUp() {
-        alert("Registration successful");
         $.ajax({
-           
-            url: "/AddUser",
+            url: "/Registration/Register", 
             type: "POST",
             data:
             {
@@ -57,6 +55,7 @@
             },
             success: function (data)
             {
+                alert("Registration successful");
                 console.log(data); 
             },
             error: function (error)

@@ -1,5 +1,6 @@
 ﻿using GreetingAppModelLayer;
 using GreetingAppRL;
+using Greetings.TokenAuthentification;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,10 +10,12 @@ namespace GreetingAppBL
     public class RegistrationServices:IRgistration
     {
 
-        IRegistrationRepository _repo;
-        public RegistrationServices(IRegistrationRepository repo)
+        public IRegistrationRepository _repo;
+        public ITokenManager tokenManager;
+        public RegistrationServices(IRegistrationRepository repo , ITokenManager tokenManager)
         {
             _repo = repo;
+            this.tokenManager = tokenManager;
         }
 
         public RegistrationModel AddUser(RegistrationModel registrationModel)
@@ -27,10 +30,19 @@ namespace GreetingAppBL
             return list;
         }
 
-        public RegistrationModel checkLoginUser(RegistrationModel registrationModel)
+        public string checkLoginUser(RegistrationModel registrationModel)
         {
-            RegistrationModel data = _repo.checkLoginUser(registrationModel);
-            return data;
+            RegistrationModel user = _repo.checkLoginUser(registrationModel);
+            if (user == null)
+            {
+                return null;
+            }
+            else
+            {
+                var tokenString = tokenManager.GenerateToken(user);
+                return tokenString;
+            }
+            
         }
     }
 }

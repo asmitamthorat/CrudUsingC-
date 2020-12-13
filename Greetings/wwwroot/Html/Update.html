@@ -16,9 +16,6 @@
                 <input id="email" class="Input_Field" placeholder="Email" />
             </div>
             <div class=" Input_Divs">
-                <input id="password" class="Input_Field" placeholder="Password" type="password" />
-            </div>
-            <div class=" Input_Divs">
                 <input id="address" class="Input_Field" placeholder="Address" />
             </div>
             <div class=" Input_Divs">
@@ -39,19 +36,26 @@
     
 
     $(document).on('click', '#Update_Button', function () {
+      var  data=
+      {
+          ID: window.location.href.split("?")[1],
+          Email: $("#email").val(),
+          Name: $("#name").val(),
+          Address: $("#address").val(),
+          PhoneNumber: $("#phoneno").val()
+        }
+        console.log("data=",data)
         $.ajax({
-            //var a = window.location.href,
-           
             url: "/Employee/UpdateEmployee/" + window.location.href.split("?")[1],
             type: "PUT",
-            data:
-            {
-                Email: $("#email").val(),
-                Name: $("#name").val(),
-                Password: $("#password").val(),
-                Address: $("#address").val(),
-                PhoneNumber: $("#phoneno").val()
-            },
+            data:data,
+            //{
+            //    Email: $("#email").val(),
+            //    Name: $("#name").val(),
+            //    Password: $("#password").val(),
+            //    Address: $("#address").val(),
+            //    PhoneNumber: $("#phoneno").val()
+            //},
             success: function (data) {
                 alert(" Updated succesfully");
             },
@@ -60,4 +64,30 @@
             }
         })
     });
+
+    function getEmployeeBYid()
+    {
+        $.ajax({
+            type: 'GET',
+            url: '/Employee/GetEmployee/' + window.location.href.split("?")[1],
+            success: function (data) {
+                console.log(data);
+                $('#email').val(data.data.email) 
+                $('#name').val(data.data.name)
+                $('#address').val(data.data.address)
+                $('#phoneno').val(data.data.phoneNumber)
+               // $('#password').val(data.data.phoneNumber)
+                //$.each(data, function (index, employee) {
+                //    console.log(employee);
+                //});
+            },
+             error: function (error) {
+                console.log(error.response)
+            }
+        })
+    }
+
+    $(document).ready(function () {
+        getEmployeeBYid();
+    })
 </script>

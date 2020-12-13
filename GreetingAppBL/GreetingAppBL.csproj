@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.1.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GreetingAppModelLayer\GreetingAppModelLayer.csproj" />
     <ProjectReference Include="..\GreetingAppRL\GreetingAppRL.csproj" />
   </ItemGroup>

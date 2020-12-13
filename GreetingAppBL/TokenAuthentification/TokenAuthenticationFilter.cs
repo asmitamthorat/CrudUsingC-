@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Greetings.TokenAuthentification
 {
-    public class TokenAuthenticationFilter: Attribute
+    public class TokenAuthenticationFilter: Attribute, IAuthorizationFilter
     {
         public void OnAuthorization(AuthorizationFilterContext context) 
         {
@@ -14,7 +14,7 @@ namespace Greetings.TokenAuthentification
             if (context.HttpContext.Request.Headers.ContainsKey("Authorization"))
             {
                 var token = context.HttpContext.Request.Headers.First(cookie => cookie.Key == "Authorization").Value;
-                var ClaimPrinciple = _tokenManager.Decode(token.ToString().Split(" ")[1]);
+                var ClaimPrinciple = _tokenManager.GetPrincipal(token.ToString().Split(" ")[1]);
             }
             else
             {

@@ -9,7 +9,8 @@ namespace Greetings.TokenAuthentification
 {
     public interface ITokenManager
     {
-        string Encode(Employee employee);
-        ClaimsPrincipal Decode(string token);
+        string GenerateToken(RegistrationModel registrationModel);
+        ClaimsPrincipal GetPrincipal(string token);
+        string ValidateToken(string token);
     }
 }

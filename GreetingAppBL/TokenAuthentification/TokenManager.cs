@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -22,12 +23,12 @@ namespace Greetings.TokenAuthentification
             secretKey = Encoding.ASCII.GetBytes(cofiguration.GetSection("JwtSecretKey").Value);
         }
 
-        public string Encode (Employee employee)
+        public string GenerateToken(RegistrationModel registrationModel)
         {
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new System.Security.Claims.ClaimsIdentity(new Claim[] {
-            new Claim(ClaimTypes.Email, employee.Email)
+            new Claim(ClaimTypes.Email, registrationModel.email)
             }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKey),
@@ -37,7 +38,7 @@ namespace Greetings.TokenAuthentification
             return tokenHandler.WriteToken(token);   
         }
 
-        public ClaimsPrincipal Decode(String token) {
+        public ClaimsPrincipal GetPrincipal(String token) {
             var claims = tokenHandler.ValidateToken(token, new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
@@ -48,6 +49,15 @@ namespace Greetings.TokenAuthentification
                 ClockSkew = TimeSpan.FromMinutes(15)
             }, out SecurityToken validatedToken);
             return claims;
+        }
+
+        public string ValidateToken(string token)
+        {
+            ClaimsPrincipal principal = GetPrincipal(token);
+            ClaimsIdentity identity = (ClaimsIdentity)principal.Identity;
+            Claim userNameClaim = identity.FindFirst(ClaimTypes.Email);
+            string email = userNameClaim.Value;
+            return email;
         }
     }
 }
