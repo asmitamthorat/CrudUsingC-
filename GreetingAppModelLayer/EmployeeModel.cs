@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GreetingAppModelLayer
 {
-        public class Employee
+        public class EmployeeModel
         {
             public int ID { get; set; }
             public string Email { get; set; }
@@ -13,5 +13,4 @@ namespace GreetingAppModelLayer
             public string Address { get; set; }
             public int PhoneNumber { get; set; }
         }
-    
 }

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace GreetingAppBL
 {
-    public class RegistrationServices:IRgistrationServices
+    public class RegistrationServices:IRegistrationServices
     {
 
         public IRegistrationRepository _repo;
@@ -41,8 +41,7 @@ namespace GreetingAppBL
             {
                 var tokenString = tokenManager.GenerateToken(user);
                 return tokenString;
-            }
-            
+            }  
         }
     }
 }

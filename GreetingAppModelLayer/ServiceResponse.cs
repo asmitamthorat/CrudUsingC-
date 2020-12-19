@@ -6,10 +6,10 @@ namespace GreetingAppModelLayer
 {
     public class ServiceResponse<T>
     {
-        public T Data { get; set; }
-
-        public int Response { get; set; } 
+        public int StatusCode { get; set; } 
 
         public String Message { get; set; } = null;
+
+        public T Data { get; set; }
     }
 }

@@ -15,7 +15,6 @@ namespace GreetingAppRL
         
         public RegistrationRepository(IConfiguration configuration)
         {
-
             _configuration = configuration;
             _connectionString = configuration.GetConnectionString("GreetingAppDB");
             _conn = new SqlConnection(_connectionString);
@@ -87,7 +86,6 @@ namespace GreetingAppRL
             command.Connection = _conn;
             var count = command.ExecuteScalar(); //and check the returned value
             command.ExecuteNonQuery();
-
             using (SqlDataReader reader = command.ExecuteReader())
             {
                 while (reader.Read())

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GreetingAppBL
 {
-    public interface IService
+    public interface IEmployeeService
     {
        List<EmployeeModel> GetEmployees();
        EmployeeModel GetEmployee(int id);

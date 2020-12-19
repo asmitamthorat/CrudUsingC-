@@ -11,16 +11,15 @@ namespace Greetings.Controllers
     [Route("[controller]")]
     public class RegistrationController : ControllerBase
     {
-        private IRgistrationServices _regisService;
+        private IRegistrationServices _regisService;
 
-        public RegistrationController(IRgistrationServices registration)
+        public RegistrationController(IRegistrationServices registration)
         {
             this._regisService = registration;
         }
 
         [HttpPost]
         [Route("login")]
-
         public IActionResult LoginUser([FromForm]RegistrationModel registrationModel)
         {
             try
@@ -28,13 +27,13 @@ namespace Greetings.Controllers
                 var result = _regisService.checkLoginUser(registrationModel);
                 if (result== null)
                 {
-                    return NotFound(new ServiceResponse<RegistrationModel> { Data = null, Message = "user is not identified", Response = (int)HttpStatusCode.NotFound });
+                    return NotFound(new ServiceResponse<RegistrationModel> { StatusCode = (int)HttpStatusCode.NotFound, Message = "user is not identified", Data = null });
                 }
-                return Ok(new ServiceResponse<string> { Data = result, Message = "login successfully", Response = (int)HttpStatusCode.OK });
+                return Ok(new ServiceResponse<string> { StatusCode = (int)HttpStatusCode.OK,  Message = "login successfully", Data = result });
             }
             catch (Exception)
             {
-                return BadRequest(new ServiceResponse<RegistrationModel> { Data = null, Message = "Page not found ", Response = (int)HttpStatusCode.BadRequest });
+                return BadRequest(new ServiceResponse<RegistrationModel> { StatusCode = (int)HttpStatusCode.BadRequest, Message = "Page not found ", Data = null });
             }
         }
 
@@ -47,13 +46,13 @@ namespace Greetings.Controllers
                 var result= _regisService.AddUser(registrationModel);
                 if (result == null) {
 
-                    return NotFound(new ServiceResponse<RegistrationModel> { Data = null, Message = "internal server error", Response =(int)HttpStatusCode.NotFound});
+                    return NotFound(new ServiceResponse<RegistrationModel> { StatusCode = (int)HttpStatusCode.NotFound,  Message = "Internal server error", Data = null });
                 }
-                return Ok(new ServiceResponse<RegistrationModel> { Data = result, Message = "Added Successful", Response = (int)HttpStatusCode.OK });
+                return Ok(new ServiceResponse<RegistrationModel> { StatusCode = (int)HttpStatusCode.OK,  Message = "Added Successful", Data = result });
             }
             catch (Exception)
             {
-                return BadRequest(new ServiceResponse<RegistrationModel> { Data = null, Message = "Page not found ", Response =(int)HttpStatusCode.BadRequest });
+                return BadRequest(new ServiceResponse<RegistrationModel> { StatusCode = (int)HttpStatusCode.BadRequest, Message = "Page not found ", Data = null  });
             }     
         }
 
@@ -63,13 +62,13 @@ namespace Greetings.Controllers
             {
                 List<RegistrationModel> result = _regisService.GetUsers();
                 if (result==null) {
-                    return NotFound(new ServiceResponse<RegistrationModel> { Data = null, Message = "internal server error", Response = (int)HttpStatusCode.NotFound });
+                    return NotFound(new ServiceResponse<RegistrationModel> { StatusCode = (int)HttpStatusCode.NotFound, Message = "Internal server error", Data = null });
                 }
-                return Ok(new ServiceResponse<List<RegistrationModel>> { Data = result, Message = "successful", Response = (int)HttpStatusCode.OK });
+                return Ok(new ServiceResponse<List<RegistrationModel>> { StatusCode = (int)HttpStatusCode.OK, Message = "successful", Data = result });
             }
             catch (Exception )
             {
-                return BadRequest(new ServiceResponse<RegistrationModel> { Data = null, Message = "Page not found ", Response = (int)HttpStatusCode.BadRequest });
+                return BadRequest(new ServiceResponse<RegistrationModel> { StatusCode = (int)HttpStatusCode.BadRequest, Message = "Page not found ", Data = null  });
             }
         }
     }

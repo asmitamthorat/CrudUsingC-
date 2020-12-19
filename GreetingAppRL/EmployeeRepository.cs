@@ -8,13 +8,13 @@ using Microsoft.Extensions.Configuration;
 
 namespace GreetingAppRL
 {
-    public class Repository: IRepository
+    public class EmployeeRepository: IEmployeeRepository
     {
          private IConfiguration _configuration;
          private string _connectionString;
          private SqlConnection _conn;
 
-        public Repository(IConfiguration configuration)
+        public EmployeeRepository(IConfiguration configuration)
         {
             _configuration = configuration;
             _connectionString = configuration.GetConnectionString("GreetingAppDB");
@@ -22,7 +22,7 @@ namespace GreetingAppRL
             Console.WriteLine(_connectionString);
         }
 
-        public List<EmployeeModel> Get()
+        public List<EmployeeModel> GetEmployees()
         {
             List<EmployeeModel> employees = new List<EmployeeModel>();
             using (_conn)
@@ -49,7 +49,7 @@ namespace GreetingAppRL
             return employees;
         }
 
-        public EmployeeModel Get(int id)
+        public EmployeeModel GetEmployee(int id)
         {
             EmployeeModel employee = null;
             using (_conn) {
@@ -74,8 +74,7 @@ namespace GreetingAppRL
             return employee;
         }
 
-
-        public EmployeeModel Add(EmployeeModel employeeData)
+        public EmployeeModel AddEmployee(EmployeeModel employeeData)
         {
             SqlCommand command = new SqlCommand("insert into EmployeeTable(name,password,address,email,phoneno) values(@name,@password,@address,@email,@phoneno)");
             command.Parameters.AddWithValue("@name", employeeData.Name);
@@ -90,7 +89,7 @@ namespace GreetingAppRL
             return employeeData;
         }
 
-        public int Remove(int id)
+        public int RemoveEmployee(int id)
         {
             _conn.Open();
             SqlCommand command = new SqlCommand("Delete from EmployeeTable where id=@id", _conn);
@@ -99,7 +98,6 @@ namespace GreetingAppRL
             _conn.Close();
             return id;
         }
-
 
         public EmployeeModel UpdateEmployee(int id, EmployeeModel employee)
         {

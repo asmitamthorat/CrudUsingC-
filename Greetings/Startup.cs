@@ -18,6 +18,7 @@ using GreetingAppRL;
 using GreetingAppModelLayer;
 using Swashbuckle.AspNetCore.Swagger;
 using Greetings.TokenAuthentification;
+using Microsoft.OpenApi.Models;
 
 namespace Greetings
 {
@@ -25,11 +26,7 @@ namespace Greetings
     {
         public Startup(Microsoft.Extensions.Configuration.IConfiguration configuration)
         {
-            //Configuration = configuration;
-
-            //IConfiguration _configuration = configuration;
-            //string _connectionString = configuration.GetConnectionString("db1");
-            //SqlConnection _conn = new SqlConnection(_connectionString);
+            
         }
 
         public Microsoft.Extensions.Configuration.IConfiguration Configuration { get; }
@@ -38,25 +35,54 @@ namespace Greetings
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddScoped<IService, EmployeeServices>();
-            services.AddScoped<IRepository,EmployeeRepository>();
+            services.AddScoped<IEmployeeService, EmployeeServices>();
+            services.AddScoped<IEmployeeRepository,EmployeeRepository>();
             services.AddScoped<IRegistrationRepository, RegistrationRepository>();
-            services.AddScoped<IRgistration, RegistrationServices>();
+            services.AddScoped<IRegistrationServices, RegistrationServices>();
             services.AddSingleton<ITokenManager, TokenManager>();
 
             services.AddCors(options => options.AddDefaultPolicy(
                 builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowCredentials().AllowAnyMethod()
                 ));
 
-            services.AddSwaggerGen(c =>
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("v1", new Info { Title = "GreetingApp API", Version = "v1" });
+            //});
+            services.AddSwaggerGen(options =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "GreetingApp API", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Greeting API", Version = "v1" });
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Scheme = "bearer",
+                    Description = "Please insert JWT token into field"
+                });
+
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] { }
+                    }
+                });
             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+           // var path = Directory.GetCurrentDirectory();
+           // loggerFactory.AddFile("../Logs/Log.txt");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

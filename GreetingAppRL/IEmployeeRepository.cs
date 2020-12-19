@@ -5,12 +5,12 @@ using System.Text;
 
 namespace GreetingAppRL
 {
-    public interface IRepository
+    public interface IEmployeeRepository
     {
-       List<EmployeeModel> Get();
-       EmployeeModel Get(int id);
-       EmployeeModel Add(EmployeeModel employeeData);
-       int Remove(int id);
+       List<EmployeeModel> GetEmployees();
+       EmployeeModel GetEmployee(int id);
+       EmployeeModel AddEmployee(EmployeeModel employeeData);
+       int RemoveEmployee(int id);
        EmployeeModel UpdateEmployee(int id, EmployeeModel employee);
     }
 }

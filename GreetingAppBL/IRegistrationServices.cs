@@ -5,11 +5,10 @@ using System.Text;
 
 namespace GreetingAppBL
 {
-    public interface IRgistration
+    public interface IRegistrationServices
     {
         RegistrationModel AddUser(GreetingAppModelLayer.RegistrationModel registrationModel);
         List<RegistrationModel> GetUsers();
        string checkLoginUser(RegistrationModel registrationModel);
     }
-
 }
